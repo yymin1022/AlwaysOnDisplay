@@ -1,0 +1,152 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+	android:background="#c0c3c6"
+    android:orientation="vertical">
+	
+	<RadioGroup
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:gravity="left"
+		android:id="@+id/wallpaper">
+
+		<RadioButton
+			android:textColor="#616161"
+			android:background="#f2f2f2"
+			android:id="@+id/wallNone"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/wallpaper_none" 
+			android:onClick="wallNone"/>
+
+		<RadioButton
+			android:textColor="#616161"
+			android:background="#f2f2f2"
+			android:id="@+id/wall1"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/wallpaper_1" 
+			android:onClick="wall1"/>
+
+		<RadioButton
+			android:textColor="#616161"
+			android:background="#f2f2f2"
+			android:id="@+id/wall2"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/wallpaper_2"
+			android:onClick="wall2"/>
+		
+		<RadioButton
+			android:textColor="#616161"
+			android:background="#f2f2f2"
+			android:id="@+id/wall3"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/wallpaper_3"
+			android:onClick="wall3"/>
+		
+		<RadioButton
+			android:textColor="#616161"
+			android:background="#f2f2f2"
+			android:id="@+id/wall4"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/wallpaper_4"
+			android:onClick="wall4"/>
+		
+		<RadioButton
+			android:textColor="#616161"
+			android:background="#f2f2f2"
+			android:id="@+id/wall5"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/wallpaper_5"
+			android:onClick="wall5"/>
+		
+	</RadioGroup>
+	
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="5dp"
+		android:background="#00000000"/>
+	
+	<RadioGroup
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:gravity="left"
+		android:id="@+id/style">
+
+		<RadioButton
+			android:textColor="#616161"
+			android:background="#f2f2f2"
+			android:id="@+id/g5clock"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="LG G5" 
+			android:onClick="g5clock"/>
+
+		<RadioButton
+			android:textColor="#616161"
+			android:background="#f2f2f2"
+			android:id="@+id/s7clock"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/theme_s7"
+			android:onClick="s7clock"/>
+		
+		<RadioButton
+			android:textColor="#616161"
+			android:background="#f2f2f2"
+			android:id="@+id/s7calendar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/theme_s7_calendar"
+			android:onClick="s7calendar"/>
+		
+		<RadioButton
+			android:textColor="#616161"
+			android:background="#f2f2f2"
+			android:id="@+id/s8clock"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/theme_s8"
+			android:onClick="s8clock"/>
+		
+		<RadioButton
+			android:textColor="#616161"
+			android:background="#f2f2f2"
+			android:id="@+id/s8VerticalClock"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/theme_s8_vertical"
+			android:onClick="s8VerticalClock"/>
+		
+		<RadioButton
+			android:textColor="#616161"
+			android:background="#f2f2f2"
+			android:id="@+id/analog"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/theme_analog"
+			android:onClick="analog"/>
+		
+		<RadioButton
+			android:textColor="#616161"
+			android:background="#f2f2f2"
+			android:id="@+id/photo"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/theme_photo"
+			android:onClick="photo"
+			android:enabled="false"/>
+	
+	</RadioGroup>
+    
+</LinearLayout>

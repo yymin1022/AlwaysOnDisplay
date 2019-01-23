@@ -1,0 +1,8 @@
+<resources>
+    <color name="grid_bg">#ff000000</color>
+    <color name="grid_border">#515151</color>
+	<color name="warning_color">#f4511e</color>
+	<color name="hint_color">#42000000</color>
+	<color name="success_color">#009688</color>
+	<color name="material_red_500">#F44336</color>
+</resources>

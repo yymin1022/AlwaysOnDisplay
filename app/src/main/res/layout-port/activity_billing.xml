@@ -1,0 +1,133 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:background="#c0c3c6"
+	android:gravity="top">
+	
+	<TextView
+		android:gravity="center"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/donate_pencil"
+		android:textColor="#616161"
+		android:background="#f2f2f2"/>
+	
+	<Button
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/donate_pencil"
+		android:textColor="#616161"
+		android:background="#f2f2f2"
+		android:id="@+id/donate1"
+		android:onClick="donate1"/>
+	
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="5dp"
+		android:background="#00000000"/>
+	
+	<TextView
+		android:gravity="center"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/donate_notebook"
+		android:textColor="#616161"
+		android:background="#f2f2f2"/>
+	
+	<Button
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/donate_notebook"
+		android:textColor="#616161"
+		android:background="#f2f2f2"
+		android:id="@+id/donate2"
+		android:onClick="donate2"/>
+	
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="5dp"
+		android:background="#00000000"/>
+	
+	<TextView
+		android:gravity="center"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/donate_bag"
+		android:textColor="#616161"
+		android:background="#f2f2f2"/>
+	
+	<Button
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/donate_bag"
+		android:textColor="#616161"
+		android:background="#f2f2f2"
+		android:id="@+id/donate3"
+		android:onClick="donate3"/>
+	
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="5dp"
+		android:background="#00000000"/>
+	
+	<TextView
+		android:gravity="center"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/donate_really"
+		android:textColor="#616161"
+		android:background="#f2f2f2"/>
+	
+	<Button
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/donate_really"
+		android:textColor="#616161"
+		android:background="#f2f2f2"
+		android:id="@+id/donate4"
+		android:onClick="donate4"/>
+	
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="5dp"
+		android:background="#00000000"/>
+	
+	<TextView
+		android:gravity="center"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/donate_remove_advertisement"
+		android:textColor="#616161"
+		android:background="#f2f2f2"/>
+	
+	<Button
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="string/donate_remove_advertisement"
+		android:textColor="#616161"
+		android:background="#f2f2f2"
+		android:id="@+id/ad_remove"
+		android:onClick="ad_remove"/>
+    
+</LinearLayout>

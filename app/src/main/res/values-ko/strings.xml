@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Always On Display</string>
+
+	<string name="aod_date_date">일</string>
+	<string name="aod_date_month">월</string>
+	<string name="aod_date_year">년</string>
+	<string name="aod_time_am">오전 </string>
+	<string name="aod_time_pm">오후 </string>
+	<string name="aod_date_day">요일</string>
+
+	<string name="donate_already_purchased">이미 구매되었습니다.</string>
+	<string name="donate_bag">개발자에게 가방 하나 사주기</string>
+	<string name="donate_notebook">개발자에게 커피 한잔 기부하기</string>
+	<string name="donate_pencil">개발자에게 볼펜 한자루 기부하기</string>
+	<string name="donate_ready">결제하기</string>
+	<string name="donate_really">금수저 전용 기부하기</string>
+	<string name="donate_remove_advertisement">광고 제거하기</string>
+	<string name="donate_wait">잠시만 기다려주세요...</string>
+
+	<string name="info_blog">개발자 블로그 놀러가기</string>
+	<string name="info_developer">\n개발 : 성보고등학교 졸업생 유용민 (2019년 2월 졸업)\n</string>
+	<string name="info_share">Always On Display 공유하기</string>
+
+	<string name="main_button_error">업데이트 이후 애플리케이션이 동작하지 않아요!</string>
+	<string name="main_button_info">애플리케이션 정보</string>
+	<string name="main_button_purchase">광고 제거하기 / 기부하기</string>
+	<string name="main_button_setting">Always On Display 화면 설정</string>
+	<string name="main_button_start">서비스 시작</string>
+	<string name="main_button_stop">서비스 중지</string>
+	<string name="main_dialog_cancel">취소</string>
+	<string name="main_dialog_errorupdate">애플리케이션 업데이트 이후 애플리케이션의 데이터 저장소에 오류가 발생하는 경우가 빈번히 일어나고 있습니다. 만약, 업데이트 이후 문제가 발생한다면 확인버튼을 눌러 앱 정보창으로 이동해 데이터 지우기를 시실행해주세요. 데이터 지우기 이후에도 문제가 발생하는 경우, Google Play 리뷰 또는 이메일을 통해 자세한 문제사항을 전달해주시면 빠른 시일 내 문제를 해결하고자 노력하겠습니다.</string>
+	<string name="main_dialog_ok">확인</string>
+	<string name="main_text_not_running">Always On Display가 비활성화되었습니다.</string>
+	<string name="main_text_running">Always On Display가 활성화되었습니다.</string>
+
+	<string name="noti_running">Always On Display가 실행중입니다.</string>
+	<string name="noti_text_running"> 가 활성화되었습니다..</string>
+
+	<string name="permission_allowed">허용되었습니다.</string>
+	<string name="permission_call">전화 관련 권한</string>
+	<string name="permission_finish">완료되었습니다.</string>
+	<string name="permission_not_allowed">아직 권한 부여가 완료되지 않았습니다.</string>
+	<string name="permission_noti">알림 읽기 권한</string>
+	<string name="permission_noti_not_support">알림 읽기 권한 : 이 기능이 지원되지 않는 기기입니다.</string>
+	<string name="permission_warning">권한을 거부하시면 애플리케이션을 이용하실 수 없습니다.\n\n[설정] > [애플리케이션] > [AlwaysOnDisplay] > [권한] 메뉴에서 허용해주세요.</string>
+
+	<string name="setting_brightness">Always On Display 화면 밝기</string>
+	<string name="setting_brightness_auto">화면 밝기 자동 조정\n자동밝기 미지원 기기에서는 동작하지 않습니다.\n일부 기기에서는 화면 밝기 조정이 지연될 수 있습니다.</string>
+	<string name="setting_burnin">번인현상 보호 : Always On Display가 매 분마다 이동합니다.</string>
+	<string name="setting_clock_format">시계 24시간 형식 사용</string>
+	<string name="setting_dt2w">노크온 기능 : Always On Display 화면을 두번 터치하여 잠금화면으로 이동합니다</string>
+	<string name="setting_home_button">삼성 스타일 홈버튼 표시 : 길게 누르면 잠금화면으로 이동합니다.</string>
+	<string name="setting_proximity">절전모드 : 주머니, 가방 등에서 근접센서가 감지될 경우 화면을 끕니다.</string>
+	<string name="setting_proximity_not_support">절전모드 : 지원되지 않는 기능입니다. Android 5.0 이상의 운영체제에서만 동작합니다.</string>
+	<string name="setting_rotate">Always On Display 화면 회전 비활성화 : 세로로 고정합니다. : 공사중</string>
+	<string name="setting_theme">Always On Display 시계 테마</string>
+	<string name="setting_timer">Always On Display 타이머 : 비활성화시 항상 동작합니다.</string>
+	<string name="setting_timer_info">시작시간과 종료시간을 순서대로 설정해주세요.</string>
+	<string name="setting_timer_not_set">설정되지 않음</string>
+	<string name="setting_timer_set">시간 설정</string>
+	<string name="setting_timer_start">시작시간 : </string>
+	<string name="setting_timer_stop">종료시간 : </string>
+	<string name="setting_volume_button">Always On Display 화면에서 볼륨버튼의 작동을 비활성화</string>
+
+	<string name="tedpermission_close">닫기</string>
+    <string name="tedpermission_confirm">확인</string>
+	<string name="tedpermission_setting">설정</string>
+
+	<string name="theme_analog">아날로그 시계</string>
+	<string name="theme_photo">사진 (공사중)</string>
+	<string name="theme_s7">삼성 갤럭시 S7 시계</string>
+	<string name="theme_s7_calendar">삼성 갤럭시 S7 달력</string>
+	<string name="theme_s8">삼성 갤럭시 S8 가로시계</string>
+	<string name="theme_s8_vertical">삼성 갤럭시 S8 세로시계</string>
+
+	<string name="wallpaper_none">배경화면 없음</string>
+	<string name="wallpaper_1">배경화면 1 (블루 도트)</string>
+	<string name="wallpaper_2">배경화면 2 (컬러풀 도트)</string>
+	<string name="wallpaper_3">배경화면 3 (나뭇잎)</string>
+	<string name="wallpaper_4">배경화면 4 (핑크 도트)</string>
+	<string name="wallpaper_5">배경화면 5 (지구)</string>
+</resources>

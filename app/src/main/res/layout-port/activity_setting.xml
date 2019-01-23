@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+	android:background="#c0c3c6"
+	android:gravity="top">
+	
+	<ScrollView
+		android:layout_margin="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical">
+		
+		<LinearLayout 
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:orientation="vertical"
+			android:gravity="center">
+			
+			<CheckBox
+				android:textColor="#616161"
+				android:background="#f2f2f2"
+				android:id="@+id/check_burnin"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/setting_burnin" />
+			
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="5dp"
+				android:background="#00000000"/>
+			
+			<CheckBox
+				android:textColor="#616161"
+				android:background="#f2f2f2"
+				android:id="@+id/check_dt2w"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/setting_dt2w" />
+			
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="5dp"
+				android:background="#00000000"/>
+			
+			<CheckBox
+				android:textColor="#616161"
+				android:background="#f2f2f2"
+				android:id="@+id/check_homeButton"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/setting_home_button" />
+			
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="5dp"
+				android:background="#00000000"/>
+			
+			<CheckBox
+				android:textColor="#616161"
+				android:background="#f2f2f2"
+				android:id="@+id/check_volumeButton"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/setting_volume_button" />
+			
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="5dp"
+				android:background="#00000000"/>
+			
+		    <CheckBox
+				android:textColor="#616161"
+				android:background="#f2f2f2"
+				android:enabled="false"
+				android:checked="false"
+				android:id="@+id/check_rotate"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/setting_rotate" />
+			
+			<CheckBox
+				android:textColor="#616161"
+				android:background="#f2f2f2"
+				android:id="@+id/check_proximity"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/setting_proximity" />
+			
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="5dp"
+				android:background="#00000000"/>
+			
+			<CheckBox
+				android:textColor="#616161"
+				android:background="#f2f2f2"
+				android:id="@+id/check_24h"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/setting_clock_format" />
+			
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="5dp"
+				android:background="#00000000"/>
+			
+			<Button
+				android:textColor="#616161"
+				android:background="#f2f2f2"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:text="@string/setting_theme"
+				android:onClick="themeActivity"/>
+			
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="5dp"
+				android:background="#00000000"/>
+			
+			<TextView
+				android:textColor="#616161"
+				android:background="#f2f2f2"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:text="@string/setting_brightness"
+				android:gravity="left"
+				android:textSize="25sp"/>
+			
+			<CheckBox
+				android:textColor="#616161"
+				android:background="#f2f2f2"
+				android:id="@+id/check_autoBrightness"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/setting_brightness_auto" />
+			
+			<SeekBar
+				android:textColor="#616161"
+				android:background="#f2f2f2"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:id="@+id/seek_brightness"
+				android:max="100"/>
+			
+			<TextView
+				android:textColor="#616161"
+				android:background="#f2f2f2"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:id="@+id/currentBrightness"
+				android:gravity="center"
+				android:textSize="15dp"/>
+		
+		</LinearLayout>
+	
+	</ScrollView>
+	
+</LinearLayout>

@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+	android:background="#c0c3c6"
+    android:orientation="vertical">
+	
+	<Button
+		android:id="@+id/btn_phoneState"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/permission_call"
+		android:textColor="#616161"
+		android:background="#f2f2f2"
+		android:onClick="phoneState"/>
+	
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="5dp"
+		android:background="#00000000"/>
+	
+	<Button
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:id="@+id/btn_noti"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/permission_noti"
+		android:textColor="#616161"
+		android:background="#f2f2f2"
+		android:onClick="notiPermission"/>
+	
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="5dp"
+		android:background="#00000000"/>
+	
+	<Button
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:id="@+id/btn_end"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/permission_not_allowed"
+		android:textColor="#616161"
+		android:background="#f2f2f2"
+		android:onClick="end"/>
+    
+</LinearLayout>
