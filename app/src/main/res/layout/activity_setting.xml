@@ -105,6 +105,19 @@
 				android:layout_width="match_parent"
 				android:layout_height="5dp"
 				android:background="#00000000"/>
+
+			<Button
+				android:textColor="#616161"
+				android:background="#f2f2f2"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:text="@string/setting_running_noti"
+				android:onClick="removeNoti"/>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="5dp"
+				android:background="#00000000"/>
 			
 			<Button
 				android:textColor="#616161"

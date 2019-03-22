@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Always On Display</string>
-	
+
 	<string name="aod_date_date">.</string>
 	<string name="aod_date_month">.</string>
 	<string name="aod_date_year">.</string>
 	<string name="aod_time_am">AM </string>
 	<string name="aod_time_pm">PM </string>
-	<string name="aod_date_day"></string>
-	
+	<string name="aod_date_day"> </string>
+
 	<string name="donate_already_purchased">Already Purchased</string>
-	<string name="donate_bag">Donate a BackPack to Developer</string>
-	<string name="donate_notebook">Donate a Notebook to Developer</string>
-	<string name="donate_pencil">Donate a Pencil to Developer</string>
 	<string name="donate_ready">Press Here to Purchase</string>
-	<string name="donate_really">Riches Only</string>
 	<string name="donate_remove_advertisement">Remove Advertisement</string>
-	<string name="donate_wait">Please Wait...</string>
-	
+	<string name="donate_unknown_error">An Error Occured (ErrorCode %1$s)</string>
+	<string name="donate_user_canceled">Purchase Cancelled by User</string>
+	<string name="donate_wait">Please Wait..</string>
+	<string name="donate_10000">Donate a Pizza to Developer</string>
+	<string name="donate_5000">Donate a Hamburger Set to Developer</string>
+	<string name="donate_1000">Donate a Cup of Coffee to Developer</string>
+	<string name="donate_50000">Donate a Full Course Dinner to Developer</string>
+
 	<string name="info_blog">Visit Developer\'s Blog!</string>
-	<string name="info_developer">\nDevelop : Yongmin Yoo in Sungbo High School(SouthKorea)\n</string>
+	<string name="info_developer">\nDevelop : Yongmin Yoo, Graduated Sungbo High School(SouthKorea) at Feb, 2019\nLearn Softare Programming in Chung And Univ. in Korea\n</string>
 	<string name="info_share">Share this AOD Application!</string>
-	
+
 	<string name="main_button_error">Application doesn\'t work after Update!</string>
 	<string name="main_button_info">Application info</string>
 	<string name="main_button_purchase">Remove Advertisement / Donation</string>
@@ -33,27 +35,34 @@
 	<string name="main_dialog_ok">OK</string>
 	<string name="main_text_not_running">AOD is disabled</string>
 	<string name="main_text_running">AOD is enabled</string>
-	
+
 	<string name="noti_running">Always On Display Service is running</string>
 	<string name="noti_text_running"> is enabled.</string>
 
-	<string name="permission_allowed">Allowed</string>
+	<string name="permission_allowed">%1$s : Allowed</string>
 	<string name="permission_call">Call related Permission</string>
+    <string name="permission_call_info">It needs to stop AOD service when you are calling</string>
 	<string name="permission_finish">Finished. You can use AOD!</string>
-	<string name="permission_not_allowed">Not Yet Allowed all Permissions</string>
+	<string name="permission_not_allowed">%1$s : Not Allowed</string>
+	<string name="permission_not_allowed_all">Not Yet Allowed all Permissions</string>
+	<string name="permission_not_support">%1$s : Not supported on this Device Version</string>
 	<string name="permission_noti">Notification Read Permission</string>
-	<string name="permission_noti_not_support">Notification Read Permission : Notification feature is not Supported on this device</string>
+    <string name="permission_noti_info">It needs to show notification at AOD screen</string>
 	<string name="permission_warning">If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]</string>
-	
+	<string name="permission_write_settings">Write Settings Permission</string>
+    <string name="permission_write_settings_info">It needs to adjust screen brightness at AOD screen</string>
+
 	<string name="setting_brightness">AOD Screen Brightness</string>
 	<string name="setting_brightness_auto">Adjust Brightness Automatically\nIt could not be worked on some Auto-Brightness-UnSupported Devices\nOn some devices, adjusting brightness might be delayed a little</string>
 	<string name="setting_burnin">Burn-In Protection(Clock will move to random location every 1 min)</string>
 	<string name="setting_clock_format">Use 24h TimeFormat</string>
+	<string name="setting_dialog_removenoti">From Android 8.0 Oreo, Application must show an unclearable notification when Application runs on background. If you hate this, you can forcely disable this notification from Application Info. Click OK to set it. Go to Notification and Set the switch off.</string>
 	<string name="setting_dt2w">Knock-On Feature(If it is diabled, you can only exit from AOD Screen using HOME Button, not POWER Button)</string>
 	<string name="setting_home_button">Show S8 style home button(Long-Press to exit AOD)</string>
 	<string name="setting_proximity">Proximity Sensor Powersave</string>
 	<string name="setting_proximity_not_support">Proximity Sensor Powersave : This feature can not be used on your device. It requires Android 5.0+ Version.</string>
 	<string name="setting_rotate">Disable Screen Rotate when AOD screen (Horizontal Only) : Developing Now.</string>
+	<string name="setting_running_noti">Remove Always On Display is Running Notification</string>
 	<string name="setting_theme">AOD Clock Theme</string>
 	<string name="setting_timer">AOD Timer(If no use, AOD will always enabled)</string>
 	<string name="setting_timer_info">Set StartTime and StopTime orderly</string>
@@ -62,18 +71,18 @@
 	<string name="setting_timer_start">AOD Start Time: </string>
 	<string name="setting_timer_stop">AOD Stop Time: </string>
 	<string name="setting_volume_button">Disable Volume Button in AOD</string>
-	
+
 	<string name="tedpermission_close">Close</string>
     <string name="tedpermission_confirm">Confirm</string>
 	<string name="tedpermission_setting">Setting</string>
-    
+
 	<string name="theme_analog">Analog Clock</string>
 	<string name="theme_photo">Photo(Not Yet)</string>
 	<string name="theme_s7">Samsung Galaxy S7 Clock Default Design</string>
 	<string name="theme_s7_calendar">Samsung Galaxy S7 Calendar</string>
 	<string name="theme_s8">Samsung Galaxy S8 Clock(Horizontal)</string>
 	<string name="theme_s8_vertical">Samsung Galaxy S8 Clock(Vertical)</string>
-	
+
 	<string name="wallpaper_none">Wallpaper None(Black)</string>
 	<string name="wallpaper_1">Wallpaper1(Blue Dots)</string>
 	<string name="wallpaper_2">Wallpaper2(Colorful Dots)</string>

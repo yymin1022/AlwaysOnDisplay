@@ -17,6 +17,8 @@ public class AODService extends Service
 	static final String SYSTEM_DIALOG_REASON_KEY = "reason";
     static final String SYSTEM_DIALOG_REASON_HOME_KEY = "homekey";
 
+	NotificationCompat.Builder notificationBuilder;
+
 	private BroadcastReceiver homeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -61,7 +63,14 @@ public class AODService extends Service
 		}
 		WakeUpScreen.acquireCpuLock(getApplicationContext());
 
-		NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), "Always On Display")
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+			NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+			NotificationChannel channel = new NotificationChannel("AlwaysOnDisplay", "Always On Display is Running", NotificationManager.IMPORTANCE_MIN);
+			channel.setImportance(NotificationManager.IMPORTANCE_MIN);
+			channel.setDescription("Always On Display is Running");
+			notificationManager.createNotificationChannel(channel);
+		}
+		notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), "AlwaysOnDisplay")
 				.setSmallIcon(R.drawable.ic_launcher)
 				.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher))
 				.setContentTitle("Always On Display")
@@ -69,13 +78,6 @@ public class AODService extends Service
 				.setOngoing(true)
 				.setPriority(Notification.PRIORITY_MIN)
 				.setAutoCancel(false);
-
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-			NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-			NotificationChannel channel = new NotificationChannel("Always On Display", "Always On Display is Running", NotificationManager.IMPORTANCE_MIN);
-			channel.setDescription("Always On Display is Running");
-			notificationManager.createNotificationChannel(channel);
-		}
 		startForeground(1379, notificationBuilder.build());
 		return super.onStartCommand(intent, flags, startId);
 	}

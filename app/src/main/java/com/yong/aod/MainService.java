@@ -8,6 +8,7 @@ import android.telephony.*;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 public class MainService extends Service
 {
@@ -17,24 +18,27 @@ public class MainService extends Service
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+				Intent aodIntent = new Intent(context, AODActivity.class);
+				aodIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+				aodIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				aodIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+				startActivity(aodIntent);
+				/* Beta Version Only
 				prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
 				if(!prefs.getBoolean("AOD", false)){
-					Log.d("Receiver", "AOD Run");
-
 					Intent aodIntent = new Intent(context, AODActivity.class);
 					aodIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 					aodIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					aodIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 					startActivity(aodIntent);
 				}else{
-					Log.d("Receiver", "AOD Exit Screen On");
-
 					PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
 					PowerManager.WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK|PowerManager.ACQUIRE_CAUSES_WAKEUP, "PowerManager : ");
 					wakeLock.acquire(3000);
 					
-					sendBroadcast(new Intent("exit"));
+					prefs.edit().putBoolean("AOD", false).apply();
 				}
+				Beta Version Only */
 			}
 		}
 	};
@@ -71,13 +75,14 @@ public class MainService extends Service
 			.setContentTitle("Always On Display")
 			.setContentText("Always On Display" + getResources().getString(R.string.noti_text_running))
 			.setOngoing(true)
-			.setPriority(Notification.PRIORITY_MIN)
+			.setPriority(NotificationCompat.PRIORITY_MIN)
 			.setAutoCancel(false);
 
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
 			NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 			NotificationChannel channel = new NotificationChannel("Always On Display", "Always On Display is Running", NotificationManager.IMPORTANCE_MIN);
 			channel.setDescription("Always On Display is Running");
+			channel.setImportance(NotificationManager.IMPORTANCE_MIN);
 			notificationManager.createNotificationChannel(channel);
 		}
 		startForeground(1111, notificationBuilder.build());

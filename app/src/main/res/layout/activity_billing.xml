@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
 	android:orientation="vertical"
@@ -11,7 +12,7 @@
 		android:layout_marginRight="5dp"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/donate_pencil"
+		android:text="@string/donate_1000"
 		android:textColor="#616161"
 		android:background="#f2f2f2"/>
 	
@@ -20,7 +21,7 @@
 		android:layout_marginRight="5dp"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/donate_pencil"
+		android:text="@string/donate_wait"
 		android:textColor="#616161"
 		android:background="#f2f2f2"
 		android:id="@+id/donate1"
@@ -37,7 +38,7 @@
 		android:layout_marginRight="5dp"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/donate_notebook"
+		android:text="@string/donate_5000"
 		android:textColor="#616161"
 		android:background="#f2f2f2"/>
 	
@@ -46,7 +47,7 @@
 		android:layout_marginRight="5dp"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/donate_notebook"
+		android:text="@string/donate_wait"
 		android:textColor="#616161"
 		android:background="#f2f2f2"
 		android:id="@+id/donate2"
@@ -63,7 +64,7 @@
 		android:layout_marginRight="5dp"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/donate_bag"
+		android:text="@string/donate_10000"
 		android:textColor="#616161"
 		android:background="#f2f2f2"/>
 	
@@ -72,7 +73,7 @@
 		android:layout_marginRight="5dp"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/donate_bag"
+		android:text="@string/donate_wait"
 		android:textColor="#616161"
 		android:background="#f2f2f2"
 		android:id="@+id/donate3"
@@ -89,7 +90,7 @@
 		android:layout_marginRight="5dp"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/donate_really"
+		android:text="@string/donate_50000"
 		android:textColor="#616161"
 		android:background="#f2f2f2"/>
 	
@@ -98,7 +99,7 @@
 		android:layout_marginRight="5dp"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/donate_really"
+		android:text="@string/donate_wait"
 		android:textColor="#616161"
 		android:background="#f2f2f2"
 		android:id="@+id/donate4"
@@ -124,7 +125,7 @@
 		android:layout_marginRight="5dp"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="string/donate_remove_advertisement"
+		android:text="@string/donate_wait"
 		android:textColor="#616161"
 		android:background="#f2f2f2"
 		android:id="@+id/ad_remove"

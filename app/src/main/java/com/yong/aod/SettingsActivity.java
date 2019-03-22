@@ -2,6 +2,7 @@ package com.yong.aod;
 
 import android.app.*;
 import android.content.*;
+import android.net.Uri;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
@@ -130,7 +131,7 @@ public class SettingsActivity extends AppCompatActivity
 				}
 			}
 		});
-		
+		/*
 		check_rotate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -145,7 +146,7 @@ public class SettingsActivity extends AppCompatActivity
 					}
 				}
 		});
-		
+		*/
 		check_proximity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -206,7 +207,7 @@ public class SettingsActivity extends AppCompatActivity
 				break;
 		}
 		
-		switch(prefs.getInt("rotate",0)){
+		switch(prefs.getInt("rotate",1)){
 			case 0:
 				check_rotate.setChecked(false);
 				break;
@@ -279,5 +280,22 @@ public class SettingsActivity extends AppCompatActivity
 	
 	public void themeActivity(View v){
 		startActivity(new Intent(this, ThemeActivity.class));
+	}
+
+
+	public void removeNoti(View V){
+		new AlertDialog.Builder(this)
+			.setMessage(getResources().getString(R.string.setting_dialog_removenoti))
+			.setCancelable(false)
+			.setPositiveButton(getResources().getString(R.string.main_dialog_ok), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+					Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+					intent.setData(Uri.parse("package:" + getPackageName()));
+					startActivity(intent);
+				}
+				})
+			.setNegativeButton("아니요",null)
+			.show();
 	}
 }

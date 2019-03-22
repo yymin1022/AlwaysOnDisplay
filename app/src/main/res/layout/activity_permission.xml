@@ -29,8 +29,24 @@
 		android:text="@string/permission_noti"
 		android:textColor="#616161"
 		android:background="#f2f2f2"
-		android:onClick="notiPermission"/>
+		android:onClick="notiReceive"/>
 	
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="5dp"
+		android:background="#00000000"/>
+
+	<Button
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:id="@+id/btn_write_setting"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/permission_write_settings"
+		android:textColor="#616161"
+		android:background="#f2f2f2"
+		android:onClick="writeSetting"/>
+
 	<View
 		android:layout_width="match_parent"
 		android:layout_height="5dp"
@@ -42,7 +58,7 @@
 		android:id="@+id/btn_end"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/permission_not_allowed"
+		android:text="@string/permission_not_allowed_all"
 		android:textColor="#616161"
 		android:background="#f2f2f2"
 		android:onClick="end"/>

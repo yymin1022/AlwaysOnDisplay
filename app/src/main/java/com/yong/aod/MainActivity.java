@@ -1,43 +1,45 @@
 package com.yong.aod;
 
+import android.Manifest;
 import android.app.*;
 import android.content.*;
+import android.content.pm.PackageManager;
 import android.os.*;
 import android.provider.Settings;
 import android.view.*;
 import android.widget.*;
 import com.fsn.cauly.*;
 import android.net.*;
+import java.util.Set;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity implements CaulyCloseAdListener
 {
-	private CaulyAdView adView;
-	private static final String APP_CODE = "TOeplGZT";
+	private static final String APP_CODE = BuildConfig.CaulyID;
  	CaulyCloseAd mCloseAd ;
+    SharedPreferences prefs;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-		final SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-		if(!prefs.getBoolean("isPermissionGranted", false)){
-			startActivity(new Intent(this, PermissionActivity.class));
-		}
+        prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (Settings.System.canWrite(this)) {
-                Toast.makeText(this, "onCreate: Already Granted", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "onCreate: Not Granted. Permission Requested", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                intent.setData(Uri.parse("package:" + this.getPackageName()));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        }
+		//Check for Permission Allowed or Not
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+			if(isNotiPermissionAllowed() || isCallAllowed() || !isWriteSettingAllowed()){
+				startActivity(new Intent(this, PermissionActivity.class));
+			}
+		}else if(Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT){
+			if(isNotiPermissionAllowed()){
+				startActivity(new Intent(this, PermissionActivity.class));
+			}
+		}
 
 		final Switch serviceToggle = findViewById(R.id.serviceSwitch);
 		serviceToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
@@ -74,26 +76,28 @@ public class MainActivity extends AppCompatActivity implements CaulyCloseAdListe
 			serviceToggle.setChecked(false);
 			serviceToggle.setText(R.string.main_text_not_running);
 		}
-		if(!prefs.getBoolean("ad_removed",false)){
-			showBanner();
-		}else{
-			LinearLayout layout=findViewById(R.id.mainLayout);
-			layout.setVisibility(View.GONE);
-		}
-		CaulyAdInfo closeAdInfo = new CaulyAdInfoBuilder(APP_CODE).build();
-		mCloseAd = new CaulyCloseAd();
-		mCloseAd.setButtonText("취소", "종료");
-		mCloseAd.setDescriptionText("종료하시겠습니까?");
-		mCloseAd.setAdInfo(closeAdInfo);
-		mCloseAd.setCloseAdListener(this); 
-		mCloseAd.disableBackKey();
 	}
 	
 	@Override
 	protected void onResume() {
-		super.onResume(); 
-		if (mCloseAd != null)
- 			mCloseAd.resume(this);
+		super.onResume();
+		if(!prefs.getBoolean("ad_removed",false)){
+			showBanner();
+
+            CaulyAdInfo closeAdInfo = new CaulyAdInfoBuilder(APP_CODE).build();
+            mCloseAd = new CaulyCloseAd();
+            mCloseAd.setButtonText("취소", "종료");
+            mCloseAd.setDescriptionText("종료하시겠습니까?");
+            mCloseAd.setAdInfo(closeAdInfo);
+            mCloseAd.setCloseAdListener(this);
+            mCloseAd.disableBackKey();
+		}else{
+			LinearLayout layout=findViewById(R.id.mainLayout);
+			layout.setVisibility(View.GONE);
+		}
+
+        if (mCloseAd != null)
+            mCloseAd.resume(this);
 	}
 
 	@Override
@@ -149,13 +153,14 @@ public class MainActivity extends AppCompatActivity implements CaulyCloseAdListe
  		finish();
  	}
  	@Override
- 	public void onShowedCloseAd(CaulyCloseAd ad, boolean isChargable) {		
+ 	public void onShowedCloseAd(CaulyCloseAd ad, boolean isChargable) {
+
  	}
 	
 	private void showBanner(){
 		LinearLayout layout=findViewById(R.id.mainLayout);
 		CaulyAdInfo adInfo= new CaulyAdInfoBuilder("TOeplGZT").effect("Circle").reloadInterval(1).enableDefaultBannerAd(true).build();
-		adView=new CaulyAdView(this);
+		CaulyAdView adView = new CaulyAdView(this);
 		adView.setAdInfo(adInfo);
 		layout.addView(adView,0);
 	}
@@ -174,14 +179,16 @@ public class MainActivity extends AppCompatActivity implements CaulyCloseAdListe
 	}
 	
 	public void errorWithUpdate(View v){
-		new AlertDialog.Builder(this).setMessage(getResources().getString(R.string.main_dialog_errorupdate))
+		new AlertDialog.Builder(this)
+			.setMessage(getResources().getString(R.string.main_dialog_errorupdate))
+			.setCancelable(false)
 			.setPositiveButton(getResources().getString(R.string.main_dialog_ok), new DialogInterface.OnClickListener() {
- 			    @Override
- 			    public void onClick(DialogInterface dialog, int which) {
+ 			   	@Override
+ 			   	public void onClick(DialogInterface dialog, int which) {
 					Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
 					intent.setData(Uri.parse("package:" + getPackageName()));
 					startActivity(intent);
- 			    }
+ 			   	}
 			})
 			.setNegativeButton("아니요",null)
 			.show();
@@ -195,5 +202,30 @@ public class MainActivity extends AppCompatActivity implements CaulyCloseAdListe
             }
         }
         return false;
+	}
+
+	@RequiresApi(Build.VERSION_CODES.KITKAT)
+	private boolean isNotiPermissionAllowed() {
+		Set<String> notiListenerSet = NotificationManagerCompat.getEnabledListenerPackages(this);
+		String myPackageName = getPackageName();
+
+		for(String packageName : notiListenerSet) {
+			if(packageName == null) {
+				continue;
+			}
+			if(packageName.equals(myPackageName)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean isCallAllowed(){
+    	return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED;
+	}
+
+	@RequiresApi(Build.VERSION_CODES.M)
+	private boolean isWriteSettingAllowed(){
+    	return Settings.System.canWrite(this);
 	}
 }

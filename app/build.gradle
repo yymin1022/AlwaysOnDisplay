@@ -1,21 +1,31 @@
 apply plugin: 'com.android.application'
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     signingConfigs {
-        Default {
-            keyAlias 'yymin1022'
-            keyPassword 'dydals1022'
-            storeFile file('D:/AppProjects/debug.keystore')
-            storePassword 'dydals1022'
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
         }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.yong.aod"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 40
+        versionName "4.4_release1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -34,13 +44,14 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
+    implementation 'com.android.billingclient:billing:1.1'
     implementation 'com.ssomai:android.scalablelayout:2.1.6'
     implementation 'gun0912.ted:tedpermission:2.2.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'org.jetbrains:annotations-java5:15.0'
+    implementation files('libs/CaulySDK-3.4.22.jar')
 }

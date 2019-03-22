@@ -397,7 +397,7 @@ public class AODActivity extends Activity
 			default:
 				break;
 		}
-    	switch(prefs.getInt("rotate", 0)){
+    	switch(prefs.getInt("rotate", 1)){
 			case 1:
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
   				break;
@@ -524,7 +524,7 @@ public class AODActivity extends Activity
 		}
 		
 		//Set DT2W Usage
-		if(useDT2W == true){
+		if(useDT2W){
 			View knockButton = findViewById(R.id.knock);
 			knockButton.setOnTouchListener(new OnTouchListener() {
 					private GestureDetector gestureDetector = new GestureDetector(AODActivity.this, new GestureDetector.SimpleOnGestureListener() {
@@ -546,7 +546,7 @@ public class AODActivity extends Activity
 		//Set S8 Home Button Usage
 		ImageView homeButton = findViewById(R.id.home_button);
 		final Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-		if(useS8Home == true){
+		if(useS8Home){
 			homeButton.setVisibility(View.VISIBLE);
 			homeButton.setOnTouchListener(new OnTouchListener() {
 			private GestureDetector gestureDetector = new GestureDetector(AODActivity.this, new GestureDetector.SimpleOnGestureListener() {

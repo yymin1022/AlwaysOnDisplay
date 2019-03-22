@@ -1,198 +1,213 @@
 package com.yong.aod;
 
-import android.content.*;
-import android.os.*;
-import android.util.*;
-import android.view.*;
-import android.widget.*;
-import com.anjlab.android.iab.v3.*;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.SkuDetails;
+import com.android.billingclient.api.SkuDetailsParams;
+import com.android.billingclient.api.SkuDetailsResponseListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class BillingActivity extends AppCompatActivity
+public class BillingActivity extends AppCompatActivity implements PurchasesUpdatedListener
 {
-	private static final String PRODUCT_ID1 = "donate_1000";
-	private static final String PRODUCT_ID2 = "donate_5000";
-	private static final String PRODUCT_ID3 = "donate_10000";
-	private static final String PRODUCT_ID4 = "donate_50000";
-	private static final String PRODUCT_ID5 = "ad_remove";
-    private static final String LICENSE_KEY = BuildConfig.LicenseKey;
-	private static final String MERCHANT_ID= BuildConfig.MerchantID;
-	private static final String LOG_TAG = "yong_aod";
-	private BillingProcessor bp;
-	private boolean readyToPurchase = false;
+	static final String SKU_AD_REMOVE = "ad_remove";
+	static final String SKU_DONATE_1 = "donate_1000";
+	static final String SKU_DONATE_2 = "donate_5000";
+	static final String SKU_DONATE_3 = "donate_10000";
+	static final String SKU_DONATE_4 = "donate_50000";
+
+	String priceAdRemove;
+	String priceDonate1;
+	String priceDonate2;
+	String priceDonate3;
+	String priceDonate4;
+
+	private BillingClient billingClient;
+	private Button btnAdRemove;
+	private Button btnDonate1;
+	private Button btnDonate2;
+	private Button btnDonate3;
+	private Button btnDonate4;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_billing);
-		final Button donateButton1 = findViewById(R.id.donate1);
-		final Button donateButton2 = findViewById(R.id.donate2);
-		final Button donateButton3 = findViewById(R.id.donate3);
-		final Button donateButton4 = findViewById(R.id.donate4);
-		final Button ad_removeButton = findViewById(R.id.ad_remove);
-		donateButton1.setEnabled(false);
-		donateButton1.setText(getString(R.string.donate_wait));
-		donateButton2.setEnabled(false);
-		donateButton2.setText(getString(R.string.donate_wait));
-		donateButton3.setEnabled(false);
-		donateButton3.setText(getString(R.string.donate_wait));
-		donateButton4.setEnabled(false);
-		donateButton4.setText(getString(R.string.donate_wait));
-		ad_removeButton.setEnabled(false);
-		ad_removeButton.setText(getString(R.string.donate_wait));
-		if (!BillingProcessor.isIabServiceAvailable(this))
-		{
-            showToast("In-app billing service is unavailable, please upgrade Android Market/Play to version >= 3.9.16");
-        }
 
-        bp = new BillingProcessor(this, LICENSE_KEY, MERCHANT_ID, new BillingProcessor.IBillingHandler() {
-				@Override
-				public void onProductPurchased(String productId, TransactionDetails details)
-				{
-					switch (productId)
-					{
-						case "ad_remove":
-							ad_removeButton.setEnabled(false);
-							ad_removeButton.setText(getString(R.string.donate_already_purchased));
-							SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-							SharedPreferences.Editor ed = prefs.edit();
-							ed.remove("ad_removed");
-							ed.putBoolean("ad_removed", true);
-							ed.apply();
-							break;
-						case "donate_1000":
-							donateButton1.setEnabled(false);
-							donateButton1.setText(getString(R.string.donate_already_purchased));
-							break;
-						case "donate_5000":
-							donateButton2.setEnabled(false);
-							donateButton2.setText(getString(R.string.donate_already_purchased));
-							break;
-						case "donate_10000":
-							donateButton3.setEnabled(false);
-							donateButton3.setText(getString(R.string.donate_already_purchased));
-							break;
-						case "donate_50000":
-							donateButton4.setEnabled(false);
-							donateButton4.setText(getString(R.string.donate_already_purchased));
-							break;
-					}
+		btnAdRemove = findViewById(R.id.ad_remove);
+		btnDonate1 = findViewById(R.id.donate1);
+		btnDonate2 = findViewById(R.id.donate2);
+		btnDonate3 = findViewById(R.id.donate3);
+		btnDonate4 = findViewById(R.id.donate4);
+
+		btnAdRemove.setEnabled(false);
+		btnAdRemove.setText(getResources().getString(R.string.donate_wait));
+		btnDonate1.setEnabled(false);
+		btnDonate1.setText(getResources().getString(R.string.donate_wait));
+		btnDonate2.setEnabled(false);
+		btnDonate2.setText(getResources().getString(R.string.donate_wait));
+		btnDonate3.setEnabled(false);
+		btnDonate3.setText(getResources().getString(R.string.donate_wait));
+		btnDonate4.setEnabled(false);
+		btnDonate4.setText(getResources().getString(R.string.donate_wait));
+
+		billingClient = BillingClient.newBuilder(BillingActivity.this).setListener(this).build();
+		billingClient.startConnection(new BillingClientStateListener() {
+			@Override
+			public void onBillingSetupFinished(int responseCode) {
+				if(responseCode == BillingClient.BillingResponse.OK){
+					//Start Quering to Google Play
+					queryPurchase();
 				}
-				@Override
-				public void onBillingError(int errorCode, Throwable error)
-				{
-					showToast("Error: " + Integer.toString(errorCode));
+			}
+
+			@Override
+			public void onBillingServiceDisconnected() {
+				//Try reconnect to Google Play using startConnection() method
+			}
+		});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		billingClient.queryPurchases(BillingClient.SkuType.INAPP);
+	}
+
+	@Override
+	public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
+		if(responseCode == BillingClient.BillingResponse.OK && purchases != null){
+			//Successfully Purchased
+			for(Purchase purchase : purchases){
+				if(purchase.getSku().equals(SKU_AD_REMOVE)){
+					Toast.makeText(getApplicationContext(), "Thanks for purchasing! Your AD will be hidden!", Toast.LENGTH_LONG).show();
+				}else{
+					Toast.makeText(getApplicationContext(), "Thanks for Donation!", Toast.LENGTH_LONG).show();
+
+					//Save SharedPreferences about Removing Advertisement
+                    SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
+                    SharedPreferences.Editor ed = prefs.edit();
+                    ed.remove("ad_removed");
+                    ed.putBoolean("ad_removed", true);
+                    ed.apply();
 				}
-				@Override
-				public void onBillingInitialized()
-				{
-					readyToPurchase = true;
-					donateButton1.setEnabled(true);
-					donateButton1.setText(getString(R.string.donate_ready));
-					donateButton2.setEnabled(true);
-					donateButton2.setText(getString(R.string.donate_ready));
-					donateButton3.setEnabled(true);
-					donateButton3.setText(getString(R.string.donate_ready));
-					donateButton4.setEnabled(true);
-					donateButton4.setText(getString(R.string.donate_ready));
-					ad_removeButton.setEnabled(true);
-					ad_removeButton.setText(getString(R.string.donate_ready));
-				}
-				@Override
-				public void onPurchaseHistoryRestored()
-				{
-					for (String sku : bp.listOwnedProducts())
-					{
-						Log.d(LOG_TAG, "Owned Managed Product: " + sku);
-						if(sku.equals("ad_remove")){
-							SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-							SharedPreferences.Editor ed = prefs.edit();
-							ed.remove("ad_removed");
-							ed.putBoolean("ad_removed", true);
-							ed.apply();
+			}
+		} else if (responseCode == BillingClient.BillingResponse.USER_CANCELED){
+			//User Canceled Puchase
+			Toast.makeText(getApplicationContext(), getResources().getString(R.string.donate_user_canceled), Toast.LENGTH_LONG).show();
+		}else if(responseCode == BillingClient.BillingResponse.ITEM_ALREADY_OWNED){
+			//Already Purchased Item
+			Toast.makeText(getApplicationContext(), getResources().getString(R.string.donate_already_purchased), Toast.LENGTH_LONG).show();
+		}else{
+			//Unknown Code
+			Toast.makeText(getApplicationContext(),  String.format(getResources().getString(R.string.donate_unknown_error), responseCode), Toast.LENGTH_LONG).show();
+		}
+	}
+
+	public void queryPurchase(){
+		List skuList = new ArrayList<>();
+		skuList.add(SKU_AD_REMOVE);
+		skuList.add(SKU_DONATE_1);
+		skuList.add(SKU_DONATE_2);
+		skuList.add(SKU_DONATE_3);
+		skuList.add(SKU_DONATE_4);
+
+		SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+		params.setSkusList(skuList);
+		params.setType(BillingClient.SkuType.INAPP);
+
+		billingClient.querySkuDetailsAsync(params.build(),
+				new SkuDetailsResponseListener() {
+					@Override
+					public void onSkuDetailsResponse(int responseCode, List<SkuDetails> skuDetailsList) {
+						if(responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null){
+							for (Object skuDetailsObject : skuDetailsList) {
+								SkuDetails skuDetails = (SkuDetails)skuDetailsObject;
+								String sku = skuDetails.getSku();
+								String price = skuDetails.getPrice();
+								switch (sku){
+									case SKU_AD_REMOVE:
+										priceAdRemove = price;
+										break;
+									case SKU_DONATE_1:
+										priceDonate1 = price;
+										break;
+									case SKU_DONATE_2:
+										priceDonate2 = price;
+										break;
+									case SKU_DONATE_3:
+										priceDonate3 = price;
+										break;
+									case SKU_DONATE_4:
+										priceDonate4 = price;
+										break;
+								}
+							}
 						}
 					}
-					for (String sku : bp.listOwnedSubscriptions())
-						Log.d(LOG_TAG, "Owned Subscription: " + sku);
-				}
-			});
+				});
+		btnAdRemove.setEnabled(true);
+		btnAdRemove.setText(getResources().getString(R.string.donate_ready));
+        btnDonate1.setEnabled(true);
+        btnDonate1.setText(getResources().getString(R.string.donate_ready));
+        btnDonate2.setEnabled(true);
+        btnDonate2.setText(getResources().getString(R.string.donate_ready));
+        btnDonate3.setEnabled(true);
+        btnDonate3.setText(getResources().getString(R.string.donate_ready));
+        btnDonate4.setEnabled(true);
+        btnDonate4.setText(getResources().getString(R.string.donate_ready));
 	}
 
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
+	public void ad_remove(View v){
+		BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+				.setSku(SKU_AD_REMOVE)
+				.setType(BillingClient.SkuType.INAPP)
+				.build();
+		billingClient.launchBillingFlow(this, flowParams);
 	}
 
-	@Override
-    public void onDestroy()
-	{
-        if (bp != null)
-            bp.release();
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-        if (!bp.handleActivityResult(requestCode, resultCode, data))
-            super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void showToast(String message)
-	{
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-	public void donate1(View v)
-	{
-		if (!readyToPurchase)
-		{
-            showToast("Billing not initialized.");
-            return;
-        }
-		bp.purchase(this, PRODUCT_ID1);
+	public void donate1(View v){
+		BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+				.setSku(SKU_DONATE_1)
+				.setType(BillingClient.SkuType.INAPP)
+				.build();
+		billingClient.launchBillingFlow(this, flowParams);
 	}
 
-	public void donate2(View v)
-	{
-		if (!readyToPurchase)
-		{
-            showToast("Billing not initialized.");
-            return;
-        }
-		bp.purchase(this, PRODUCT_ID2);
+	public void donate2(View v){
+		BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+				.setSku(SKU_DONATE_2)
+				.setType(BillingClient.SkuType.INAPP)
+				.build();
+		billingClient.launchBillingFlow(this, flowParams);
 	}
 
-	public void donate3(View v)
-	{
-		if (!readyToPurchase)
-		{
-            showToast("Billing not initialized.");
-            return;
-        }
-		bp.purchase(this, PRODUCT_ID3);
+	public void donate3(View v){
+		BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+				.setSku(SKU_DONATE_3)
+				.setType(BillingClient.SkuType.INAPP)
+				.build();
+		billingClient.launchBillingFlow(this, flowParams);
 	}
 
-	public void donate4(View v)
-	{
-		if (!readyToPurchase)
-		{
-            showToast("Billing not initialized.");
-            return;
-        }
-		bp.purchase(this, PRODUCT_ID4);
-	}
-
-	public void ad_remove(View v)
-	{
-		if (!readyToPurchase)
-		{
-            showToast("Billing not initialized.");
-            return;
-        }
-		bp.purchase(this, PRODUCT_ID5);
+	public void donate4(View v){
+		BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+				.setSku(SKU_DONATE_4)
+				.setType(BillingClient.SkuType.INAPP)
+				.build();
+		billingClient.launchBillingFlow(this, flowParams);
 	}
 }	

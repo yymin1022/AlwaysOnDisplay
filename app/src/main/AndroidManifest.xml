@@ -62,10 +62,12 @@
             android:excludeFromRecents="true"
             android:noHistory="true"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-            <!--<intent-filter>
+            <!-- Debug Only : Run AOD from Launcher Directly
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".BillingActivity"
