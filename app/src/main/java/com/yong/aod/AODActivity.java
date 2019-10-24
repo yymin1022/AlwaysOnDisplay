@@ -21,37 +21,39 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 public class AODActivity extends Activity 
 {
+    boolean disableVolume = false;
+    boolean isCharging = false;
+    boolean use24h = false;
+    boolean useAutoBrightness = false;
+    boolean useBurnIn = false;
 	boolean useDT2W = false;
 	boolean useS8Home = false;
-	boolean useBurnIn = false;
-	boolean use24h = false;
-	boolean useAutoBrightness = false;
-	boolean useTimer = false;
-	boolean disableRotate = false;
-	boolean disableVolume = false;
-	boolean isCharging = false;
-	
+
+    String battery = "";
 	String NEW_NOTIFICATION = "new_notification";
-	String battery = "";
-	
-	int clockType = 1;
+
+    int batteryRatio = 0;
+    int burninMarginMaxheight = 0;
+    int clockType = 1;
+    int currentApiVersion = 0;
 	int defaultAutoBrightnessValue = 0;
-	int burninMarginMaxheight = 0;
 	int heightMargin = 0;
+    int randHeight = 0;
+    int status = 0;
 	int widthMargin = 0;
-	int randHeight = 0;
-	int status = 0;
-	int batteryRatio = 0;
+
+	DisplayMetrics metrics;
+	FrameLayout.LayoutParams plControl;
+	ScalableLayout clockLayout;
+    SharedPreferences prefs;
+    SharedPreferences.Editor ed;
+	WindowManager windowManager;
 	
 	private WindowManager.LayoutParams moldLp;
 	private WindowManager.LayoutParams mnewLp;
 	private Window mWindow;
-	private int currentApiVersion;
 	
-	public static Context mContext;
-	
-	SharedPreferences prefs;
-	SharedPreferences.Editor ed;
+	public Context mContext;
 	
 	//Notification Blinker Receiver
 	private BroadcastReceiver newNotificationBroadcast = new BroadcastReceiver() {
@@ -92,16 +94,10 @@ public class AODActivity extends Activity
 		mContext = this;
 		prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
 		ed = prefs.edit();
+		ed.apply();
 		initializeAOD();
 	}
-	
-	@Override
-	protected void onPause()
-	{
-		super.onPause();
-		//sendBroadcast(new Intent("exit"));
-	}
-		
+
 	//Battery Handler
 	Handler mBatteryHandler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -259,24 +255,14 @@ public class AODActivity extends Activity
 		boolean keyBoolean = false;
     	switch (keyCode) {
 			case KeyEvent.KEYCODE_BACK:
-				keyBoolean = true;
-				break;
 			case KeyEvent.KEYCODE_MENU:
 				keyBoolean = true;
 				break;
 			case KeyEvent.KEYCODE_VOLUME_UP:
-				if(disableVolume){
-					keyBoolean = true;
-				}else{
-					keyBoolean = false;
-				}
-				break;
 			case KeyEvent.KEYCODE_VOLUME_DOWN:
-				if(disableVolume){
-					keyBoolean = true;
-				}else{
-					keyBoolean = false;
-				}
+			case KeyEvent.KEYCODE_MEDIA_NEXT:
+			case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
+				keyBoolean = disableVolume;
 				break;
 			case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
 				if(disableVolume){
@@ -284,24 +270,10 @@ public class AODActivity extends Activity
 				}else{
 					keyBoolean = false;
 					AudioManager am = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-					if (!am.isMusicActive())
+					if (am != null && !am.isMusicActive())
 						((AppCompatImageView) findViewById(R.id.play)).setImageResource(R.drawable.ic_pause);
 					else
 						((AppCompatImageView) findViewById(R.id.play)).setImageResource(R.drawable.ic_play);
-				}
-				break;
-			case KeyEvent.KEYCODE_MEDIA_NEXT:
-				if(disableVolume){
-					keyBoolean = true;
-				}else{
-					keyBoolean = false;
-				}
-				break;
-			case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
-				if(disableVolume){
-					keyBoolean = true;
-				}else{
-					keyBoolean = false;
 				}
 				break;
 		}
@@ -335,23 +307,21 @@ public class AODActivity extends Activity
 		//Set Clock Font and Clock Theme
 		TextView time;
 		Typeface font;
-		switch(prefs.getInt("setting", 1)){
+		clockType = prefs.getInt("setting", 1);
+		switch(clockType){
 			case 1:
-				clockType = 1;
 				setContentView(R.layout.aod_g5);
 				time = findViewById(R.id.time);
 				font = Typeface.createFromAsset( getAssets(), "fonts/lg.ttf" );
 				time.setTypeface(font);
 				break;
 			case 2:
-				clockType = 2;
 				setContentView(R.layout.aod_s7);
 				time = findViewById(R.id.time);
 				font = Typeface.createFromAsset( getAssets(), "fonts/samsung.ttf" );
 				time.setTypeface(font);
 				break;
 			case 3:
-				clockType = 3;
 				setContentView(R.layout.aod_cal);
 				time = findViewById(R.id.time);
 				font = Typeface.createFromAsset( getAssets(), "fonts/samsung.ttf" );
@@ -370,19 +340,22 @@ public class AODActivity extends Activity
 				mCalendarView.setEnabled(false);
 				break;
 			case 4:
-				clockType = 4;
 				setContentView(R.layout.aod_anal);
 				break;
 			case 5:
-				clockType = 5;
 				setContentView(R.layout.aod_s8);
 				time = findViewById(R.id.time);
 				font = Typeface.createFromAsset( getAssets(), "fonts/samsung_s8.ttf" );
 				time.setTypeface(font);
 				break;
 			case 6:
-				clockType = 6;
 				setContentView(R.layout.aod_s8v);
+				time = findViewById(R.id.time);
+				font = Typeface.createFromAsset( getAssets(), "fonts/samsung_s8.ttf" );
+				time.setTypeface(font);
+				break;
+			case 7:
+				setContentView(R.layout.aod_oneui);
 				time = findViewById(R.id.time);
 				font = Typeface.createFromAsset( getAssets(), "fonts/samsung_s8.ttf" );
 				time.setTypeface(font);
@@ -390,61 +363,26 @@ public class AODActivity extends Activity
 		}
 		
 		//Get User Settings
-		switch(prefs.getInt("dt2w",1)){
-			case 1:
-				useDT2W = true;
-				break;
-			default:
-				break;
+		if(prefs.getInt("dt2w",1) == 1){
+			useDT2W = true;
 		}
-    	switch(prefs.getInt("rotate", 1)){
-			case 1:
-				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-  				break;
-			default:
-				break;
+		if(prefs.getInt("rotate",1) == 1){
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		}
-		switch(prefs.getInt("home_button",0)){
-			case 1:
-				useS8Home = true;
-				break;
-			default:
-				break;
+		if(prefs.getInt("home_button",1) == 1){
+			useS8Home = true;
 		}
-		switch(prefs.getInt("burnin",0)){
-			case 1:
-				useBurnIn = true;
-				break;
-			default:
-				break;
+		if(prefs.getInt("burnin",1) == 1){
+			useBurnIn = true;
 		}
-		switch(prefs.getInt("volome_button",0)){
-			case 1:
-				disableVolume = true;
-				break;
-			default:
-				break;
+		if(prefs.getInt("volume_button",1) == 1){
+			disableVolume = true;
 		}
-		switch(prefs.getInt("timeFormat",0)){
-			case 1:
-				use24h = true;
-				break;
-			default:
-				break;
+		if(prefs.getInt("timeFormat",1) == 1){
+			use24h = true;
 		}
-		switch(prefs.getInt("autoBrightness",0)){
-			case 1:
-				useAutoBrightness = true;
-				break;
-			default:
-				break;
-		}
-		switch(prefs.getInt("useTimer",0)){
-			case 1:
-				useTimer = true;
-				break;
-			default:
-				break;
+		if(prefs.getInt("autoBrightness",1) == 1){
+			useAutoBrightness = true;
 		}
 		
 		//Start AOD Background Management Service
@@ -460,32 +398,26 @@ public class AODActivity extends Activity
 		mBatteryHandler.sendEmptyMessage(0);
 		mClockHandler.sendEmptyMessage(0);
 		mBurnInHandler.sendEmptyMessage(0);
-		
-		if(clockType == 3 || clockType == 6){
-			DisplayMetrics metrics = new DisplayMetrics();
-			WindowManager windowManager = (WindowManager) getApplicationContext()
-				.getSystemService(Context.WINDOW_SERVICE);
+
+		metrics = new DisplayMetrics();
+		windowManager = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+		if (windowManager != null){
 			windowManager.getDefaultDisplay().getMetrics(metrics);
+		}
+
+		if(clockType == 3 || clockType == 6){
 			heightMargin = (metrics.heightPixels/7);
 			widthMargin = (metrics.widthPixels/4);
-			ScalableLayout clockLayout = findViewById(R.id.clock);
-			FrameLayout.LayoutParams plControl = (FrameLayout.LayoutParams) clockLayout.getLayoutParams();
-			plControl.bottomMargin = heightMargin;
-			plControl.leftMargin = widthMargin;
-			clockLayout.setLayoutParams(plControl);
 		}else{
-			DisplayMetrics metrics = new DisplayMetrics();
-			WindowManager windowManager = (WindowManager) getApplicationContext()
-				.getSystemService(Context.WINDOW_SERVICE);
-			windowManager.getDefaultDisplay().getMetrics(metrics);
 			heightMargin = (metrics.heightPixels/7);
 			widthMargin = (metrics.widthPixels/100)*18;
-			ScalableLayout clockLayout = findViewById(R.id.clock);
-			FrameLayout.LayoutParams plControl = (FrameLayout.LayoutParams) clockLayout.getLayoutParams();
-			plControl.bottomMargin = heightMargin;
-			plControl.leftMargin = widthMargin;
-			clockLayout.setLayoutParams(plControl);
 		}
+		clockLayout = findViewById(R.id.clock);
+		plControl = (FrameLayout.LayoutParams) clockLayout.getLayoutParams();
+		plControl.bottomMargin = heightMargin;
+		plControl.leftMargin = widthMargin;
+		clockLayout.setLayoutParams(plControl);
+
 		mWindow = getWindow();
 		moldLp = mWindow.getAttributes();
 		mnewLp = mWindow.getAttributes();
@@ -498,8 +430,8 @@ public class AODActivity extends Activity
 		ImageView wallpaperView = findViewById(R.id.wallpaper);
 		switch(prefs.getInt("wallpaper",0)){
 			case 0:
-				wallpaperView.setImageDrawable(getResources().getDrawable(R.drawable.wallpaper_01));
 				wallpaperView.setVisibility(View.INVISIBLE);
+				wallpaperView.setImageDrawable(getResources().getDrawable(R.drawable.wallpaper_01));
 				break;
 			case 1:
 				wallpaperView.setVisibility(View.VISIBLE);
@@ -538,6 +470,7 @@ public class AODActivity extends Activity
 					@Override
 					public boolean onTouch(View v, MotionEvent event) {
 						gestureDetector.onTouchEvent(event);
+						v.performClick();
 						return true;
 					}
 				});
@@ -613,8 +546,7 @@ public class AODActivity extends Activity
 				Log.e("Exception", e.toString());
 			}
 		}else{
-			float value = (prefs.getInt("brightness",20))/100f;
-			mnewLp.screenBrightness = value;
+			mnewLp.screenBrightness = (prefs.getInt("brightness",20))/100f;
 			mWindow.setAttributes(mnewLp);
 		}
 	}
@@ -672,15 +604,18 @@ public class AODActivity extends Activity
 	}
 	
 	public int getRandomMath(int max, int offset) {
-		int nResult = (int)(Math.random() * max) + offset;
-		return nResult;
+		return (int)(Math.random() * max) + offset;
 	}
 
 	public static int getBatteryPercentage(Context context) {
 		Intent batteryStatus = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-		int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-		int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-		float batteryPct = level / (float)scale;
-		return (int)(batteryPct * 100);
+		if(batteryStatus != null){
+			int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+			int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+			float batteryPct = level / (float)scale;
+			return (int)(batteryPct * 100);
+		}else{
+			return 0;
+		}
 	}
 }

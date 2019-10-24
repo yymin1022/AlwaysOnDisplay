@@ -20,7 +20,7 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.yong.aod"
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 40
         versionName "4.4_release1"
