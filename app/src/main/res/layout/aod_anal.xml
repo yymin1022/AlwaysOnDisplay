@@ -4,7 +4,7 @@
 	android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-	android:gravity="left"
+	android:gravity="start"
 	android:background="#ff000000">
 	<View
 		android:layout_width="match_parent"
@@ -14,7 +14,7 @@
 	<com.ssomai.android.scalablelayout.ScalableLayout
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="left|center_vertical"
+		android:layout_gravity="start|center_vertical"
 		android:orientation="horizontal"
 		android:gravity="center"
 		android:id="@+id/clock"
@@ -41,7 +41,7 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:gravity="left"
+			android:gravity="start"
 			android:id="@+id/date"
 			sl:scale_left="120"
 			sl:scale_textsize="60"
@@ -50,8 +50,8 @@
 			sl:scale_top="450"/>
 		<ImageView
 			android:layout_width="wrap_content"
-			android:layout_toRightOf="@+id/date"
-			android:layout_marginLeft="5dp"
+			android:layout_toEndOf="@+id/date"
+			android:layout_marginStart="5dp"
 			android:gravity="center"
 			android:id="@+id/ic_battery"
 			android:layout_height="wrap_content"
@@ -61,8 +61,8 @@
 			sl:scale_top="450"/>
 		<TextView
 			android:layout_width="wrap_content"
-			android:layout_toRightOf="@+id/ic_battery"
-			android:gravity="left"
+			android:layout_toEndOf="@+id/ic_battery"
+			android:gravity="start"
 			android:id="@+id/battery"
 			android:layout_height="wrap_content"
 			sl:scale_textsize="60"
