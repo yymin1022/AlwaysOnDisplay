@@ -10,7 +10,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		android:gravity="left"
+		android:gravity="start"
 		android:id="@+id/wallpaper">
 
 		<RadioButton
@@ -80,7 +80,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		android:gravity="left"
+		android:gravity="start"
 		android:id="@+id/style">
 
 		<RadioButton
@@ -143,9 +143,8 @@
 			android:id="@+id/photo"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/theme_photo"
-			android:onClick="photo"
-			android:enabled="false"/>
+			android:text="@string/theme_oneui"
+			android:onClick="oneui"/>
 	
 	</RadioGroup>
     

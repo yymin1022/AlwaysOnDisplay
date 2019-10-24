@@ -77,7 +77,7 @@
 	<string name="tedpermission_setting">Setting</string>
 
 	<string name="theme_analog">Analog Clock</string>
-	<string name="theme_photo">Photo(Not Yet)</string>
+	<string name="theme_oneui">OneUI Text Clock</string>
 	<string name="theme_s7">Samsung Galaxy S7 Clock Default Design</string>
 	<string name="theme_s7_calendar">Samsung Galaxy S7 Calendar</string>
 	<string name="theme_s8">Samsung Galaxy S8 Clock(Horizontal)</string>

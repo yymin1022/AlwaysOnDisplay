@@ -77,7 +77,7 @@
 	<string name="tedpermission_setting">설정</string>
 
 	<string name="theme_analog">아날로그 시계</string>
-	<string name="theme_photo">사진 (공사중)</string>
+	<string name="theme_oneui">OneUI 시계</string>
 	<string name="theme_s7">삼성 갤럭시 S7 시계</string>
 	<string name="theme_s7_calendar">삼성 갤럭시 S7 달력</string>
 	<string name="theme_s8">삼성 갤럭시 S8 가로시계</string>
