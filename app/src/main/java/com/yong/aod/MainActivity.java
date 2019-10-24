@@ -196,11 +196,13 @@ public class MainActivity extends AppCompatActivity implements CaulyCloseAdListe
 	
 	public boolean isServiceRunning() {
         ActivityManager manager = (ActivityManager) this.getSystemService(Activity.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if ("com.yong.aod.MainService".equals(service.service.getClassName())) {
-                return true;
-            }
-        }
+        if(manager != null){
+			for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+				if ("com.yong.aod.MainService".equals(service.service.getClassName())) {
+					return true;
+				}
+			}
+		}
         return false;
 	}
 
