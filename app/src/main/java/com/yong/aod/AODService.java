@@ -23,7 +23,7 @@ public class AODService extends Service
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
+            if (action != null && action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
                 String reason = intent.getStringExtra(SYSTEM_DIALOG_REASON_KEY);
                 if (reason != null) {
 					if (reason.equals(SYSTEM_DIALOG_REASON_HOME_KEY)) {
@@ -68,7 +68,9 @@ public class AODService extends Service
 			NotificationChannel channel = new NotificationChannel("AlwaysOnDisplay", "Always On Display is Running", NotificationManager.IMPORTANCE_MIN);
 			channel.setImportance(NotificationManager.IMPORTANCE_MIN);
 			channel.setDescription("Always On Display is Running");
-			notificationManager.createNotificationChannel(channel);
+			if(notificationManager != null){
+				notificationManager.createNotificationChannel(channel);
+			}
 		}
 		notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), "AlwaysOnDisplay")
 				.setSmallIcon(R.drawable.ic_launcher)

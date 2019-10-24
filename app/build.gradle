@@ -22,8 +22,8 @@ android {
         applicationId "com.yong.aod"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 40
-        versionName "4.4_release1"
+        versionCode 41
+        versionName "4.5_release1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "CaulyID", "\"AlwaysOnDisplay_CaulyID\""
