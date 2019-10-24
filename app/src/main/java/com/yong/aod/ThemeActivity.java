@@ -9,12 +9,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ThemeActivity extends AppCompatActivity
 {
+	SharedPreferences prefs;
+	SharedPreferences.Editor ed;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_theme);
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
+
+		prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
+		ed = prefs.edit();
+
 		RadioGroup radioGroup = findViewById(R.id.style);
 		RadioGroup wallRadioGroup = findViewById(R.id.wallpaper);
 		switch(prefs.getInt("setting",1)){
@@ -35,6 +41,11 @@ public class ThemeActivity extends AppCompatActivity
 				break;
 			case 6:
 				radioGroup.check(R.id.s8VerticalClock);
+				break;
+			case 7:
+				radioGroup.check(R.id.oneui);
+				break;
+
 		}
 		switch(prefs.getInt("wallpaper",0)){
 			case 0:
@@ -58,122 +69,80 @@ public class ThemeActivity extends AppCompatActivity
 	}
 	
 	public void wallNone(View v){
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-		SharedPreferences.Editor ed = prefs.edit();
 		ed.remove("wallpaper");
-		ed.apply();
-		// WRITE
 		ed.putInt("wallpaper", 0);
 		ed.apply();
 	}
 
 	public void wall1(View v){
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-		SharedPreferences.Editor ed = prefs.edit();
 		ed.remove("wallpaper");
-		ed.apply();
-		// WRITE
 		ed.putInt("wallpaper", 1);
 		ed.apply();
 	}
 
 	public void wall2(View v){
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-		SharedPreferences.Editor ed = prefs.edit();
 		ed.remove("wallpaper");
-		ed.apply();
-		// WRITE
 		ed.putInt("wallpaper", 2);
 		ed.apply();
 	}
 
 	public void wall3(View v){
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-		SharedPreferences.Editor ed = prefs.edit();
 		ed.remove("wallpaper");
-		ed.apply();
-		// WRITE
 		ed.putInt("wallpaper", 3);
 		ed.apply();
 	}
 
 	public void wall4(View v){
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-		SharedPreferences.Editor ed = prefs.edit();
 		ed.remove("wallpaper");
-		ed.apply();
-		// WRITE
 		ed.putInt("wallpaper", 4);
 		ed.apply();
 	}
 
 	public void wall5(View v){
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-		SharedPreferences.Editor ed = prefs.edit();
 		ed.remove("wallpaper");
-		ed.apply();
-		// WRITE
 		ed.putInt("wallpaper", 5);
 		ed.apply();
 	}
 
 	public void g5clock(View v){
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-		SharedPreferences.Editor ed = prefs.edit();
 		ed.remove("setting");
-		ed.apply();
-		// WRITE
 		ed.putInt("setting", 1);
 		ed.apply();
 	}
 
 	public void s7clock(View v){
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-		SharedPreferences.Editor ed = prefs.edit();
 		ed.remove("setting");
-		ed.apply();
-		// WRITE
 		ed.putInt("setting", 2);
 		ed.apply();
 	}
 
 	public void analog(View v){
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-		SharedPreferences.Editor ed = prefs.edit();
 		ed.remove("setting");
-		ed.apply();
-		// WRITE
 		ed.putInt("setting", 4);
 		ed.apply();
 	}
 
 	public void s7calendar(View v){
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-		SharedPreferences.Editor ed = prefs.edit();
 		ed.remove("setting");
-		ed.apply();
-		// WRITE
 		ed.putInt("setting", 3);
 		ed.apply();
 	}
 
 	public void s8clock(View v){
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-		SharedPreferences.Editor ed = prefs.edit();
 		ed.remove("setting");
-		ed.apply();
-		// WRITE
 		ed.putInt("setting", 5);
 		ed.apply();
 	}
 
 	public void s8VerticalClock(View v){
-		SharedPreferences prefs = getApplicationContext().getSharedPreferences("androesPrefName", MODE_PRIVATE);
-		SharedPreferences.Editor ed = prefs.edit();
 		ed.remove("setting");
-		ed.apply();
-		// WRITE
 		ed.putInt("setting", 6);
+		ed.apply();
+	}
+
+	public void oneui(View v){
+		ed.remove("setting");
+		ed.putInt("setting", 7);
 		ed.apply();
 	}
 }
