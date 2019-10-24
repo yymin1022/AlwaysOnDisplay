@@ -74,7 +74,7 @@
 				android:textColor="#616161"
 				android:background="#f2f2f2"
 				android:enabled="false"
-				android:checked="false"
+				android:visibility="gone"
 				android:id="@+id/check_rotate"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
