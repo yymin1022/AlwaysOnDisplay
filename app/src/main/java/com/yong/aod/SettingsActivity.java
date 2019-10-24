@@ -162,7 +162,7 @@ public class SettingsActivity extends AppCompatActivity
 				}
 			});
 		
-		switch(prefs.getInt("burnin",0)){
+		switch(prefs.getInt("burnin",1)){
 			case 0:
 				check_burnin.setChecked(false);
 				break;
@@ -180,7 +180,7 @@ public class SettingsActivity extends AppCompatActivity
 				break;
 		}
 		
-		switch(prefs.getInt("home_button",0)){
+		switch(prefs.getInt("home_button",1)){
 			case 0:
 				check_homeButton.setChecked(false);
 				break;
@@ -189,7 +189,7 @@ public class SettingsActivity extends AppCompatActivity
 				break;
 		}
 		
-		switch(prefs.getInt("timeFormat",0)){
+		switch(prefs.getInt("timeFormat",1)){
 			case 0:
 				check_24h.setChecked(false);
 				break;
@@ -198,7 +198,7 @@ public class SettingsActivity extends AppCompatActivity
 				break;
 		}
 		
-		switch(prefs.getInt("volume_button",0)){
+		switch(prefs.getInt("volume_button",1)){
 			case 0:
 				check_volumeButton.setChecked(false);
 				break;
@@ -216,7 +216,7 @@ public class SettingsActivity extends AppCompatActivity
 				break;
 		}
 		
-		switch(prefs.getInt("proximity",0)){
+		switch(prefs.getInt("proximity",1)){
 			case 0:
 				check_proximity.setChecked(false);
 				break;

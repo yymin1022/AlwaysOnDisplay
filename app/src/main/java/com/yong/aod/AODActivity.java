@@ -356,9 +356,6 @@ public class AODActivity extends Activity
 				break;
 			case 7:
 				setContentView(R.layout.aod_oneui);
-				time = findViewById(R.id.time);
-				font = Typeface.createFromAsset( getAssets(), "fonts/samsung_s8.ttf" );
-				time.setTypeface(font);
 				break;
 		}
 		
@@ -381,7 +378,7 @@ public class AODActivity extends Activity
 		if(prefs.getInt("timeFormat",1) == 1){
 			use24h = true;
 		}
-		if(prefs.getInt("autoBrightness",1) == 1){
+		if(prefs.getInt("autoBrightness",1) == 0){
 			useAutoBrightness = true;
 		}
 		
