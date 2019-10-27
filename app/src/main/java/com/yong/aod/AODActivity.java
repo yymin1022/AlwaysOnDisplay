@@ -305,6 +305,7 @@ public class AODActivity extends Activity
 		ed.apply();
 		
 		//Set Clock Font and Clock Theme
+		TextView date;
 		TextView time;
 		Typeface font;
 		clockType = prefs.getInt("setting", 1);
@@ -356,6 +357,11 @@ public class AODActivity extends Activity
 				break;
 			case 7:
 				setContentView(R.layout.aod_oneui);
+				time = findViewById(R.id.time);
+				date = findViewById(R.id.date);
+				font = Typeface.createFromAsset( getAssets(), "fonts/gothic_light.ttf" );
+				date.setTypeface(font);
+				time.setTypeface(font);
 				break;
 		}
 		

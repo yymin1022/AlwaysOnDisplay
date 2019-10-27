@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start|center_vertical"
         android:orientation="horizontal"
-        android:gravity="center"
         android:id="@+id/clock"
         sl:scale_base_height="1080"
         sl:scale_base_width="1080">
@@ -34,24 +33,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:id="@+id/time"
             android:gravity="start"
-            sl:scale_textsize="170"
+            sl:scale_textsize="130"
             sl:scale_width="600"
             sl:scale_height="240"
-            sl:scale_top="1"
-            sl:scale_left="10"/>
+            sl:scale_top="1"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
             android:id="@+id/date"
-            sl:scale_left="120"
-            sl:scale_textsize="60"
+            sl:scale_textsize="90"
             sl:scale_width="680"
-            sl:scale_height="80"
-            sl:scale_top="215"/>
+            sl:scale_height="240"
+            sl:scale_top="165"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_toEndOf="@+id/date"
@@ -61,19 +57,18 @@
             android:layout_height="wrap_content"
             sl:scale_width="60"
             sl:scale_height="80"
-            sl:scale_left="580"
-            sl:scale_top="215"/>
+            sl:scale_top="300"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_toEndOf="@+id/ic_battery"
-            android:gravity="left"
+            android:gravity="start"
             android:id="@+id/battery"
             android:layout_height="wrap_content"
             sl:scale_textsize="60"
             sl:scale_width="140"
             sl:scale_height="80"
-            sl:scale_left="640"
-            sl:scale_top="215"/>
+            sl:scale_left="100"
+            sl:scale_top="300"/>
         <com.yong.aod.MusicPlayer
             android:gravity="center"
             android:layout_width="match_parent"

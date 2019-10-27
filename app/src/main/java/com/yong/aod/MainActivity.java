@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements CaulyCloseAdListe
 	
 	private void showBanner(){
 		LinearLayout layout=findViewById(R.id.mainLayout);
-		CaulyAdInfo adInfo= new CaulyAdInfoBuilder("TOeplGZT").effect("Circle").reloadInterval(1).enableDefaultBannerAd(true).build();
+		CaulyAdInfo adInfo= new CaulyAdInfoBuilder("TOeplGZT").effect("FadeIn").reloadInterval(1).enableDefaultBannerAd(true).build();
 		CaulyAdView adView = new CaulyAdView(this);
 		adView.setAdInfo(adInfo);
 		layout.addView(adView,0);
