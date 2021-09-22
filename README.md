@@ -13,8 +13,7 @@ Samsung GraceUX, Samsung OneUI, LG 등의 시계 테마를 지원합니다.
 
 ### Links
 
-[Github](https://github.com/yymin1022/AlwaysOnDisplay)
-
+[Github](https://github.com/yymin1022/AlwaysOnDisplay)<br/>
 [GooglePlay](http://play.google.com/store/apps/details?id=com.yong.aod)
 
 ***
